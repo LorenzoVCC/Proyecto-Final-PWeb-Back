@@ -57,6 +57,18 @@ public class Program
         });
 
         builder.Services.AddControllers();
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("Front", policy =>
+            {
+                policy.WithOrigins("http://localhost:4200")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials(); // si NO usás cookies, podés sacarlo
+            });
+        });
+
+
         builder.Services.AddOpenApi();
 
         builder.Services.AddAuthentication("Bearer").AddJwtBearer(options => {
@@ -79,9 +91,10 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseCors("Front");
         app.UseHttpsRedirection();
         app.UseAuthentication();
-        app.UseAuthorization();
+        app.UseAuthorization();     
         app.MapControllers();
         app.Run();
 

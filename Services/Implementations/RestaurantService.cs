@@ -1,5 +1,4 @@
-﻿    using Humanizer;
-using Proyecto_Final_ProgramacionWEB.Entities;
+﻿using Proyecto_Final_ProgramacionWEB.Entities;
 using Proyecto_Final_ProgramacionWEB.Model.DTOS;
 using Proyecto_Final_ProgramacionWEB.Repositories.Implementations;
 using Proyecto_Final_ProgramacionWEB.Services.Interfaces;

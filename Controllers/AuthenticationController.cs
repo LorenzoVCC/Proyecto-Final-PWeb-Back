@@ -7,8 +7,6 @@ using Proyecto_Final_ProgramacionWEB.Services.Interfaces;
 using Proyecto_Final_ProgramacionWEB.Model.DTOS;
 using Proyecto_Final_ProgramacionWEB.Entities;
 
-//TERMINAR ESTO
-
 namespace Proyecto_Final_ProgramacionWEB.Controllers
 {
     [Route("api/authentication")]
