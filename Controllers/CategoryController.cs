@@ -89,7 +89,8 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
                 int restaurantId = GetRestaurantIdFromToken();
                 
                 if (existing.Id_Restaurant != restaurantId) return StatusCode(StatusCodes.Status403Forbidden, "No podés modificar categorías de otro restaurante.");
-         
+
+                dto.Id_Restaurant = restaurantId;                                                   
 
                 _categoryService.Update(id, dto);
                 return NoContent();

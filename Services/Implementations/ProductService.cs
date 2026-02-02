@@ -107,6 +107,10 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
             {
                 Id_Product = p.Id_Product,
                 Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Discount = p.Discount,
+                URLImage = p.URLImage,
                 Id_Category = p.Id_Category
             };
 
