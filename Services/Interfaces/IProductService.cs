@@ -11,5 +11,8 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Interfaces
         ProductForReadDTO AddProduct(ProductCreateUpdateDTO dto);
         void Update(int id, ProductCreateUpdateDTO dto);
         void Delete(int id);
+        void UpdateDiscount(int id, int? discount);
+        void ToggleHappyHour(int id);
+
     }
 }

@@ -54,6 +54,8 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             return Ok(list);
         }
 
+
+
         [Authorize]
         [HttpPost]
         public ActionResult<ProductForReadDTO> AddProduct([FromBody] ProductCreateUpdateDTO dto)
@@ -132,6 +134,45 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
                 return StatusCode(StatusCodes.Status403Forbidden,"No podés borrar productos de otro restaurante.");
 
             _productService.Delete(id);
+            return NoContent();
+        }
+        
+
+        [Authorize]
+        [HttpPatch("{id:int}/discount")]
+        public IActionResult UpdateDiscount(int id, [FromBody] ProductDiscountDTO dto)
+        {
+            var existing = _productService.GetById(id);
+            if (existing is null) return NotFound();
+
+            int tokenRestaurantId = GetRestaurantIdFromToken();
+
+            var category = _categoryService.GetById(existing.Id_Category);
+            if (category is null) return BadRequest("La categoría del producto no existe.");
+
+            if (category.Id_Restaurant != tokenRestaurantId)
+                return StatusCode(StatusCodes.Status403Forbidden, "No podés modificar productos de otro restaurante.");
+
+            _productService.UpdateDiscount(id, dto.Discount);
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPatch("{id:int}/toggle-happyhour")]
+        public IActionResult ToggleHappyHour(int id)
+        {
+            var existing = _productService.GetById(id);
+            if (existing is null) return NotFound();
+
+            int tokenRestaurantId = GetRestaurantIdFromToken();
+
+            var category = _categoryService.GetById(existing.Id_Category);
+            if (category is null) return BadRequest("La categoría del producto no existe.");
+
+            if (category.Id_Restaurant != tokenRestaurantId)
+                return StatusCode(StatusCodes.Status403Forbidden, "No podés modificar productos de otro restaurante.");
+
+            _productService.ToggleHappyHour(id);
             return NoContent();
         }
     }

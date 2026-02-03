@@ -47,6 +47,8 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
             existing.Description = product.Description;
             existing.Price = product.Price;
             existing.Discount = product.Discount;
+            existing.HappyHour = product.HappyHour;
+            existing.IsFeatured = product.IsFeatured;
             existing.URLImage = product.URLImage;
             existing.Id_Category = product.Id_Category;
 

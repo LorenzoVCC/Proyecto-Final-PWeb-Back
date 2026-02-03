@@ -19,6 +19,8 @@ namespace Proyecto_Final_ProgramacionWEB.Entities
 
         public int? Discount { get; set; }
 
+        public bool HappyHour { get; set; } = false;
+        public bool IsFeatured { get; set; } = false;
         public string? URLImage { get; set; }
 
 

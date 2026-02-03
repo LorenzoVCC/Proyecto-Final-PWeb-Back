@@ -100,6 +100,24 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
             _productRepository.Delete(id);
         }
 
+        public void UpdateDiscount(int id, int? discount)
+        {
+            var product = _productRepository.GetById(id);
+            if (product == null) throw new Exception("El producto no existe");
+
+            product.Discount = discount;
+            _productRepository.UpdateProduct(product, id);
+        }
+
+        public void ToggleHappyHour(int id)
+        {
+            var product = _productRepository.GetById(id);
+            if (product == null) throw new Exception("El producto no existe");
+
+            product.HappyHour = !product.HappyHour;
+            _productRepository.UpdateProduct(product, id);
+        }
+
 
         private static ProductForReadDTO MapToReadDTO(Product p)
         {
