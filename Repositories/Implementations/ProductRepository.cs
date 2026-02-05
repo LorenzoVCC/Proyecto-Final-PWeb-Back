@@ -46,7 +46,7 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
             existing.Name = product.Name;
             existing.Description = product.Description;
             existing.Price = product.Price;
-            existing.Discount = product.Discount;
+            //existing.Discount = product.Discount;
             existing.HappyHour = product.HappyHour;
             existing.IsFeatured = product.IsFeatured;
             existing.URLImage = product.URLImage;
@@ -61,6 +61,24 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
             if (product is null) return;
             _context.Products.Remove(product);
             _context.SaveChanges();      
+        }
+
+        public void UpdateDiscount(int id, int? discount)
+        {
+            var existing = _context.Products.FirstOrDefault(p => p.Id_Product == id);
+            if (existing is null) return;
+
+            existing.Discount = discount;
+            _context.SaveChanges();
+        }
+
+        public void ToggleHappyHour(int id)
+        {
+            var existing = _context.Products.FirstOrDefault(p => p.Id_Product == id);
+            if (existing is null) return;
+
+            existing.HappyHour = !existing.HappyHour;
+            _context.SaveChanges();
         }
     }
 }

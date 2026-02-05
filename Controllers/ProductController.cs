@@ -48,7 +48,7 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
         }
 
         [HttpGet("by-category/{categoryId:int}")]
-        public ActionResult<ProductForReadDTO> GetByCategory(int categoryId)
+        public ActionResult<List<ProductForReadDTO>> GetByCategory(int categoryId)
         {
             var list = _productService.GetByCategory(categoryId);
             return Ok(list);

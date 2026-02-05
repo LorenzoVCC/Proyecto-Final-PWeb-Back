@@ -102,20 +102,20 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
 
         public void UpdateDiscount(int id, int? discount)
         {
-            var product = _productRepository.GetById(id);
-            if (product == null) throw new Exception("El producto no existe");
+            var existing = _productRepository.GetById(id);
+            if (existing == null) 
+                throw new Exception("El producto no existe");
 
-            product.Discount = discount;
-            _productRepository.UpdateProduct(product, id);
+            _productRepository.UpdateDiscount(id, discount);
         }
 
         public void ToggleHappyHour(int id)
         {
-            var product = _productRepository.GetById(id);
-            if (product == null) throw new Exception("El producto no existe");
+            var existing = _productRepository.GetById(id);
+            if (existing == null) 
+                throw new Exception("El producto no existe");
 
-            product.HappyHour = !product.HappyHour;
-            _productRepository.UpdateProduct(product, id);
+            _productRepository.ToggleHappyHour(id);
         }
 
 
@@ -128,6 +128,8 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
                 Description = p.Description,
                 Price = p.Price,
                 Discount = p.Discount,
+                HappyHour = p.HappyHour,  
+                IsFeatured = p.IsFeatured,
                 URLImage = p.URLImage,
                 Id_Category = p.Id_Category
             };

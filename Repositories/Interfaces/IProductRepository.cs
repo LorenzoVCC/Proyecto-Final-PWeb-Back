@@ -11,5 +11,9 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Interfaces
         void AddProduct(Product product);
         void UpdateProduct(Product product, int id);
         void Delete(int id);
+        void UpdateDiscount(int id, int? discount);
+
+        void ToggleHappyHour(int id);
+
     }
 }
