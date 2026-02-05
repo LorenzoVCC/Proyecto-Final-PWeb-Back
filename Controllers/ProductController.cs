@@ -175,5 +175,26 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             _productService.ToggleHappyHour(id);
             return NoContent();
         }
+
+        [Authorize]
+        [HttpPatch("{id:int}/toggle-featured")]
+        public IActionResult ToggleFeatured(int id)
+        {
+            var existing = _productService.GetById(id);
+            if (existing is null) return NotFound();
+
+            int tokenRestaurantId = GetRestaurantIdFromToken();
+
+            var category = _categoryService.GetById(existing.Id_Category);
+            if (category is null) return BadRequest("No existe la categoria");
+
+            if (category.Id_Restaurant != tokenRestaurantId)
+                return StatusCode(StatusCodes.Status403Forbidden, "No podés modificar productos de otro restaurante.");
+
+            _productService.ToggleFeatured(id);
+            return NoContent();
+        }
     }
 }
+
+

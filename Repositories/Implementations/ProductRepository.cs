@@ -80,5 +80,14 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
             existing.HappyHour = !existing.HappyHour;
             _context.SaveChanges();
         }
+
+        public void ToggleFeatured(int id)
+        {
+            var existing = _context.Products.FirstOrDefault(p => p.Id_Product == id);
+            if (existing is null) return;
+
+            existing.IsFeatured = !existing.IsFeatured;
+            _context.SaveChanges();
+        }
     }
 }

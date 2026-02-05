@@ -118,6 +118,14 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
             _productRepository.ToggleHappyHour(id);
         }
 
+        public void ToggleFeatured(int id)
+        {
+            var existing = _productRepository.GetById(id);
+            if (existing == null)
+                throw new Exception("El producto no existe");
+
+            _productRepository.ToggleFeatured(id);
+        }
 
         private static ProductForReadDTO MapToReadDTO(Product p)
         {

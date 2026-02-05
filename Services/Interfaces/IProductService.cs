@@ -13,6 +13,6 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Interfaces
         void Delete(int id);
         void UpdateDiscount(int id, int? discount);
         void ToggleHappyHour(int id);
-
+        void ToggleFeatured(int id);
     }
 }
