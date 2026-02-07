@@ -5,6 +5,7 @@ using Proyecto_Final_ProgramacionWEB.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
 {
@@ -51,13 +52,15 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
             {
                 Name = dto.Name,
                 Email = dto.Email,
-                Password = dto.Password,
                 Description = dto.Description,
                 ImageURL = dto.ImageURL,
                 BGImage = dto.BGImage,
                 Address = dto.Address,
                 Slug = dto.Slug,
             };
+
+            var hasher = new PasswordHasher<Restaurant>();
+            restaurant.Password = hasher.HashPassword(restaurant, dto.Password);
 
             _restaurantRepository.AddRestaurant(restaurant);
         }
@@ -112,8 +115,17 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
         {
             var restaurant = _restaurantRepository.GetByEmail(loginDto.Email);
 
-            if (restaurant is null || restaurant.Password != loginDto.Password)
-                return null;
+            if (restaurant is null) return null;
+
+            var hasher = new PasswordHasher<Restaurant>();
+
+            var result = hasher.VerifyHashedPassword(
+                restaurant,
+                restaurant.Password,
+                loginDto.Password
+            );
+
+            if (result == PasswordVerificationResult.Failed) return null;
 
             return new RestaurantForReadDTO
             {

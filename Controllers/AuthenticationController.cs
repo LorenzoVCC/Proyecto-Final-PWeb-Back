@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Text;
 using Proyecto_Final_ProgramacionWEB.Services.Interfaces;
