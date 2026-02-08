@@ -1,6 +1,7 @@
 ﻿using Proyecto_Final_ProgramacionWEB.Data;
 using Proyecto_Final_ProgramacionWEB.Repositories.Interfaces;
 using Proyecto_Final_ProgramacionWEB.Entities;
+using Proyecto_Final_ProgramacionWEB.Model.DTOS;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -88,6 +89,38 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
 
             existing.IsFeatured = !existing.IsFeatured;
             _context.SaveChanges();
+        }
+
+        public List<Product> Search(ProductSearchDTO query)
+        {
+            var products = _context.Products.AsQueryable();
+
+            if (query.CategoryId.HasValue)
+                products = products.Where(p => p.Id_Category == query.CategoryId.Value);
+
+            if (query.HappyHour.HasValue)
+                products = products.Where(p => p.HappyHour == query.HappyHour.Value);
+
+            if (query.Featured.HasValue)
+                products = products.Where(p => p.IsFeatured == query.Featured.Value);
+
+            if (query.MinPrice.HasValue)
+                products = products.Where(p => p.Price >= query.MinPrice.Value);
+
+            if (query.MaxPrice.HasValue)
+                products = products.Where(p => p.Price <= query.MaxPrice.Value);
+
+            if (!string.IsNullOrWhiteSpace(query.Q))
+            {
+                var q = query.Q.Trim().ToLower();
+
+                products = products.Where(p =>
+                    p.Name.ToLower().Contains(q) ||
+                    (p.Description != null && p.Description.ToLower().Contains(q))
+                );
+            }
+
+            return products.ToList();
         }
     }
 }

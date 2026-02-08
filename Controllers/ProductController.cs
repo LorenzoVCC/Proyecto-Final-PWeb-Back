@@ -69,14 +69,14 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
                     return BadRequest("La categoría indicada no existe.");
 
                 if (category.Id_Restaurant != restaurantId)
-                    return StatusCode(StatusCodes.Status403Forbidden,"No podés crear productos en categorías de otro restaurante.");
+                    return StatusCode(StatusCodes.Status403Forbidden, "No podés crear productos en categorías de otro restaurante.");
 
 
                 var created = _productService.AddProduct(dto);
                 if (created is null) return NotFound(created);
 
                 return CreatedAtAction(nameof(GetById), new { id = created.Id_Product }, created);
-            
+
             }
             catch (ArgumentException ex)
             {
@@ -98,7 +98,7 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
                 var currentCategory = _categoryService.GetById(existing.Id_Category);
                 if (currentCategory is null) return BadRequest("Categoria Inexistente");
 
-                if (currentCategory.Id_Restaurant != tokenRestaurantId) return StatusCode(StatusCodes.Status403Forbidden,"No podés modificar productos de otro restaurante.");
+                if (currentCategory.Id_Restaurant != tokenRestaurantId) return StatusCode(StatusCodes.Status403Forbidden, "No podés modificar productos de otro restaurante.");
 
                 if (dto.Id_Category != existing.Id_Category)
                 {
@@ -106,7 +106,7 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
                     if (newCategory is null) return BadRequest("La categoría indicada no existe.");
 
                     if (newCategory.Id_Restaurant != tokenRestaurantId)
-                       return StatusCode(StatusCodes.Status403Forbidden,"No podés asignar una categoría que pertenece a otro restaurante.");
+                        return StatusCode(StatusCodes.Status403Forbidden, "No podés asignar una categoría que pertenece a otro restaurante.");
                 }
 
                 _productService.Update(id, dto);
@@ -131,12 +131,12 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             if (category is null) return BadRequest("La categoría del producto no existe.");
 
             if (category.Id_Restaurant != tokenRestaurantId)
-                return StatusCode(StatusCodes.Status403Forbidden,"No podés borrar productos de otro restaurante.");
+                return StatusCode(StatusCodes.Status403Forbidden, "No podés borrar productos de otro restaurante.");
 
             _productService.Delete(id);
             return NoContent();
         }
-        
+
 
         [Authorize]
         [HttpPatch("{id:int}/discount")]
@@ -193,6 +193,14 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
 
             _productService.ToggleFeatured(id);
             return NoContent();
+        }
+
+
+        [HttpGet("search")]
+        public ActionResult Search([FromQuery] ProductSearchDTO query)
+        {
+            var result = _productService.Search(query);
+            return Ok(result);
         }
     }
 }

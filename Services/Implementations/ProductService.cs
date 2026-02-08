@@ -127,6 +127,12 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
             _productRepository.ToggleFeatured(id);
         }
 
+        public List<ProductForReadDTO> Search(ProductSearchDTO query)
+        {
+            var products = _productRepository.Search(query);
+            return products.Select(MapToReadDTO).ToList();
+        }
+
         private static ProductForReadDTO MapToReadDTO(Product p)
         {
             return new ProductForReadDTO

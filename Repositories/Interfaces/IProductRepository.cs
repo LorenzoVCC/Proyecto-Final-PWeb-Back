@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Proyecto_Final_ProgramacionWEB.Model.DTOS;
 using Proyecto_Final_ProgramacionWEB.Entities;
 
 namespace Proyecto_Final_ProgramacionWEB.Repositories.Interfaces
@@ -14,6 +15,6 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Interfaces
         void UpdateDiscount(int id, int? discount);
         void ToggleHappyHour(int id);
         void ToggleFeatured(int id);
-
+        List<Product> Search(ProductSearchDTO query);
     }
 }
