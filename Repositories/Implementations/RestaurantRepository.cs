@@ -69,5 +69,12 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
             _context.Restaurants.Remove(restaurant);
             _context.SaveChanges();
         }
+
+        public bool ExistsByEmail(string email)
+        {
+            var mailSubmit = email.Trim().ToLower();
+            return _context.Restaurants.Any(r => r.Email.ToLower() == mailSubmit);
+        }
+
     }
 }

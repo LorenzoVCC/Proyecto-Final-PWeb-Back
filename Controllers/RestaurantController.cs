@@ -55,10 +55,17 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
         public ActionResult<Restaurant> Create([FromBody] RestaurantForCreateDTO restaurant)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                _restaurantService.AddRestaurant(restaurant);
+                return Created();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
 
-            _restaurantService.AddRestaurant(restaurant);
 
-            return Created();
         }
 
         /////////////////////////////

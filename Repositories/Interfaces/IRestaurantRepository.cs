@@ -13,5 +13,6 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
         void AddRestaurant(Restaurant restaurant);
         void Update(Restaurant restaurant);
         void Delete(int id);
+        bool ExistsByEmail(string email);
     }
 }

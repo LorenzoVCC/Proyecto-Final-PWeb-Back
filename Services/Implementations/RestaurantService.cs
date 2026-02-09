@@ -46,12 +46,18 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
         {
             return _restaurantRepository.GetByEmail(email);
         }
+
         public void AddRestaurant(RestaurantForCreateDTO dto)
         {
+            var emailSubmit = dto.Email.Trim().ToLower();
+
+            if (_restaurantRepository.ExistsByEmail(emailSubmit))
+                throw new InvalidOperationException("Correo no disponible");
+
             var restaurant = new Restaurant
             {
                 Name = dto.Name,
-                Email = dto.Email,
+                Email = emailSubmit,
                 Description = dto.Description,
                 ImageURL = dto.ImageURL,
                 BGImage = dto.BGImage,
