@@ -195,7 +195,6 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             return NoContent();
         }
 
-
         [HttpGet("search")]
         public ActionResult Search([FromQuery] ProductSearchDTO query)
         {

@@ -12,10 +12,12 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
     public class RestaurantService : IRestaurantService
     {
         private readonly IRestaurantRepository _restaurantRepository;
+        private readonly IPasswordHasher<Restaurant> _passwordHasher;
 
-        public RestaurantService(IRestaurantRepository restaurantRepository)
+        public RestaurantService(IRestaurantRepository restaurantRepository, IPasswordHasher<Restaurant> passwordHasher)
         {
             _restaurantRepository = restaurantRepository;
+            _passwordHasher = passwordHasher;
         }
 
         public List<RestaurantForReadDTO> GetAllRestaurants()
@@ -64,10 +66,7 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
                 Address = dto.Address,
                 Slug = dto.Slug,
             };
-
-            var hasher = new PasswordHasher<Restaurant>();
-            restaurant.Password = hasher.HashPassword(restaurant, dto.Password);
-
+            restaurant.Password = _passwordHasher.HashPassword(restaurant, dto.Password);
             _restaurantRepository.AddRestaurant(restaurant);
         }
 
@@ -86,7 +85,9 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
                 restaurant.Email = dto.Email;
 
             if (dto.Password is not null && dto.Password != "string")
-                restaurant.Password = dto.Password;
+            {
+                restaurant.Password = _passwordHasher.HashPassword(restaurant, dto.Password);
+            }
 
             if (dto.Description is not null && dto.Description != "string")
                 restaurant.Description = dto.Description;
@@ -105,9 +106,6 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
 
             if (dto.IsActive.HasValue)
                 restaurant.IsActive = dto.IsActive.Value;
-            /*
-            if (dto.Id_Gastronomy.HasValue)
-                restaurant.Id_Gastronomy = dto.Id_Gastronomy.Value;*/
 
             _restaurantRepository.Update(restaurant);
         }
@@ -123,9 +121,7 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
 
             if (restaurant is null) return null;
 
-            var hasher = new PasswordHasher<Restaurant>();
-
-            var result = hasher.VerifyHashedPassword(
+            var result = _passwordHasher.VerifyHashedPassword(
                 restaurant,
                 restaurant.Password,
                 loginDto.Password

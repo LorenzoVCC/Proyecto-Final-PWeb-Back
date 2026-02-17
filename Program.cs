@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -27,6 +28,7 @@ public class Program
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IPasswordHasher<Proyecto_Final_ProgramacionWEB.Entities.Restaurant>, PasswordHasher<Proyecto_Final_ProgramacionWEB.Entities.Restaurant>>();
 
 
         /////////////////////Swagger/////////////////////
@@ -71,6 +73,10 @@ public class Program
 
         builder.Services.AddOpenApi();
 
+        var secret = builder.Configuration["Authentication:SecretForKey"]
+        ?? throw new InvalidOperationException("Falta Authentication:SecretForKey en config (UserSecrets/appsettings).");
+
+
         builder.Services.AddAuthentication("Bearer").AddJwtBearer(options => {
             options.TokenValidationParameters = new()
             {
@@ -79,7 +85,8 @@ public class Program
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = builder.Configuration["Authentication:Issuer"],
                 ValidAudience = builder.Configuration["Authentication:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret)
+)
             };
         }
     );
