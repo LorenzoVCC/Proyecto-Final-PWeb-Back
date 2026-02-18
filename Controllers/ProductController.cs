@@ -201,6 +201,17 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             var result = _productService.Search(query);
             return Ok(result);
         }
+
+
+        [HttpGet("featured")]
+        public ActionResult<List<ProductForReadDTO>> GetFeatured([FromQuery] int restaurantId)
+        {
+            if (restaurantId <= 0) return BadRequest("restaurantId inválido");
+
+            var products = _productService.GetFeaturedByRestaurantId(restaurantId);
+            return Ok(products);
+        }
+
     }
 }
 

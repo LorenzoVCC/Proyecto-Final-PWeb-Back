@@ -16,5 +16,6 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Interfaces
         void ToggleHappyHour(int id);
         void ToggleFeatured(int id);
         List<Product> Search(ProductSearchDTO query);
+        List<Product> GetFeaturedByRestaurantId(int restaurantId);
     }
 }

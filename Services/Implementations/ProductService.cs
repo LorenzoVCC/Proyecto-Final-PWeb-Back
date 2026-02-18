@@ -149,5 +149,24 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
             };
 
         }
+
+        public List<ProductForReadDTO> GetFeaturedByRestaurantId(int restaurantId)
+        {
+            var products = _productRepository.GetFeaturedByRestaurantId(restaurantId);
+
+            return products.Select(p => new ProductForReadDTO
+            {
+                Id_Product = p.Id_Product,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                HappyHour = p.HappyHour,
+                IsFeatured = p.IsFeatured,
+                Discount = p.Discount,
+                URLImage = p.URLImage,
+                Id_Category = p.Id_Category
+            }).ToList();
+        }
+
     }
 }

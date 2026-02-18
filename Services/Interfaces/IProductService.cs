@@ -15,5 +15,7 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Interfaces
         void ToggleHappyHour(int id);
         void ToggleFeatured(int id);
         List<ProductForReadDTO> Search(ProductSearchDTO query);
+        List<ProductForReadDTO> GetFeaturedByRestaurantId(int restaurantId);
+
     }
 }

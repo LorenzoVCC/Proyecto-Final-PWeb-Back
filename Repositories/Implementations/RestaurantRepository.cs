@@ -75,6 +75,5 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
             var mailSubmit = email.Trim().ToLower();
             return _context.Restaurants.Any(r => r.Email.ToLower() == mailSubmit);
         }
-
     }
 }

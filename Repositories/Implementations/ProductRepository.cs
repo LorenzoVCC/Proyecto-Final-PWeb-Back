@@ -122,5 +122,18 @@ namespace Proyecto_Final_ProgramacionWEB.Repositories.Implementations
 
             return products.ToList();
         }
+
+        public List<Product> GetFeaturedByRestaurantId(int restaurantId)
+        {
+            return _context.Products
+                .Where(p => p.IsFeatured == true)
+                .Join(_context.Categories,
+                        p => p.Id_Category,
+                        c => c.Id_Category,
+                        (p, c) => new { p, c })
+                .Where(x => x.c.Id_Restaurant == restaurantId)
+                .Select(x => x.p)
+                .ToList();
+        }
     }
 }
