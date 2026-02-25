@@ -56,6 +56,7 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
                 Name = dto.Name,
                 Id_Restaurant = dto.Id_Restaurant
             };
+
             _categoryRepository.AddCategory(category);
             return MapToReadDTO(category);
         }

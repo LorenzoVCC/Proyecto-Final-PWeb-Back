@@ -101,8 +101,6 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             }
         }
 
-
-
         //////////////////////////////////////////////////////////
         [Authorize]
         [HttpDelete("{id:int}")]

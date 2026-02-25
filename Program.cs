@@ -66,8 +66,7 @@ public class Program
                 policy.WithOrigins("http://localhost:4200")
                       .AllowAnyHeader()
                       .AllowAnyMethod()
-                      .AllowCredentials(); // si NO usás cookies, podés sacarlo
-            });
+                      .AllowCredentials(); //;
         });
 
 

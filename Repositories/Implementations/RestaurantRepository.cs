@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity; //demas
+using Microsoft.EntityFrameworkCore; //demas
 using Proyecto_Final_ProgramacionWEB.Data;
 using Proyecto_Final_ProgramacionWEB.Entities;
-using Proyecto_Final_ProgramacionWEB.Model.DTOS;
+using Proyecto_Final_ProgramacionWEB.Model.DTOS; //demas
 using System.Collections.Generic;
 using System.Linq;
 

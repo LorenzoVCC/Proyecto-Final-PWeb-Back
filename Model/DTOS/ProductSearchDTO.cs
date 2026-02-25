@@ -3,7 +3,6 @@
     public class ProductSearchDTO
     {
         public int RestaurantId { get; set; }
-
         public string? Q { get; set; }
         public int? CategoryId { get; set; }
 

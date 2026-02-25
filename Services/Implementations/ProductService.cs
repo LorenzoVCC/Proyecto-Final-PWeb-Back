@@ -55,9 +55,8 @@ namespace Proyecto_Final_ProgramacionWEB.Services.Implementations
                 Id_Category = dto.Id_Category
             };
             _productRepository.AddProduct(product);
-            return MapToReadDTO(product);
-            
-        }
+            return MapToReadDTO(product);    
+        } 
 
         public void Update(int id, ProductCreateUpdateDTO dto)
         {

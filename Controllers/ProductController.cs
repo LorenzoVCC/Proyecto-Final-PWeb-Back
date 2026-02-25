@@ -211,7 +211,6 @@ namespace Proyecto_Final_ProgramacionWEB.Controllers
             var products = _productService.GetFeaturedByRestaurantId(restaurantId);
             return Ok(products);
         }
-
     }
 }
 
